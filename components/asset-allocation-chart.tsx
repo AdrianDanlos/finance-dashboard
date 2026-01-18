@@ -63,7 +63,7 @@ export default function AssetAllocationChart({ data }: AssetAllocationChartProps
       
       {/* Chart - smaller on mobile, labels hidden on mobile */}
       <div style={{ outline: 'none' }} className="outline-none [&_svg]:outline-none [&_svg]:focus:outline-none **:outline-none py-2 sm:py-0">
-        <ResponsiveContainer width="100%" height={isMobile ? 200 : 300}>
+        <ResponsiveContainer width="100%" height={isMobile ? 200 : 350}>
           <PieChart>
             <Pie
               data={chartData}

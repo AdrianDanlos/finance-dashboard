@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import { toast } from 'react-hot-toast'
 import Nav from '@/components/nav'
 import { formatCurrency } from '@/lib/utils'
 import type { AssetEntry } from '@/types/database'
@@ -80,6 +81,13 @@ export default function DataPage() {
       setError(null)
       fetchEntries()
       
+      // Show success toast
+      if (editingId) {
+        toast.success('Entry updated successfully')
+      } else {
+        toast.success('Entry added successfully')
+      }
+      
       // Re-focus first input after successful add
       if (!editingId && platformInputRef.current) {
         setTimeout(() => platformInputRef.current?.focus(), 100)
@@ -87,6 +95,7 @@ export default function DataPage() {
     } catch (error) {
       console.error('Failed to save entry:', error)
       setError('Failed to save entry. Please try again.')
+      toast.error('Failed to save entry. Please try again.')
     }
   }
 
@@ -104,10 +113,15 @@ export default function DataPage() {
     if (!confirm('Are you sure you want to delete this entry?')) return
 
     try {
-      await fetch(`/api/assets/${id}`, { method: 'DELETE' })
+      const response = await fetch(`/api/assets/${id}`, { method: 'DELETE' })
+      if (!response.ok) {
+        throw new Error('Failed to delete entry')
+      }
       fetchEntries()
+      toast.success('Entry deleted successfully')
     } catch (error) {
       console.error('Failed to delete entry:', error)
+      toast.error('Failed to delete entry. Please try again.')
     }
   }
 
@@ -194,7 +208,7 @@ export default function DataPage() {
             <div className="flex items-end gap-2">
               <button
                 type="submit"
-                className="w-full rounded-md bg-zinc-900 px-4 py-2.5 sm:py-2 text-sm font-medium text-white hover:bg-zinc-800 transition-colors touch-manipulation"
+                className="w-full rounded-md bg-zinc-900 px-4 py-2.5 sm:py-2 text-sm font-medium text-white hover:bg-zinc-800 transition-colors touch-manipulation cursor-pointer"
               >
                 {editingId ? 'Update' : 'Add'}
               </button>
@@ -202,7 +216,7 @@ export default function DataPage() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="w-full rounded-md border border-zinc-300 px-4 py-2.5 sm:py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors touch-manipulation"
+                  className="w-full rounded-md border border-zinc-300 px-4 py-2.5 sm:py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors touch-manipulation cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -262,13 +276,13 @@ export default function DataPage() {
                         <div className="flex justify-end gap-2 sm:gap-3">
                           <button
                             onClick={() => handleEdit(entry)}
-                            className="text-zinc-600 hover:text-zinc-900 transition-colors touch-manipulation min-h-[44px] min-w-[44px] px-2 sm:px-0"
+                            className="text-zinc-600 hover:text-zinc-900 transition-colors touch-manipulation min-h-[44px] min-w-[44px] px-2 sm:px-0 cursor-pointer"
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => handleDelete(entry.id)}
-                            className="text-red-600 hover:text-red-900 transition-colors touch-manipulation min-h-[44px] min-w-[44px] px-2 sm:px-0"
+                            className="text-red-600 hover:text-red-900 transition-colors touch-manipulation min-h-[44px] min-w-[44px] px-2 sm:px-0 cursor-pointer"
                           >
                             Delete
                           </button>
