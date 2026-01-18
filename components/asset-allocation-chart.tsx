@@ -55,14 +55,14 @@ export default function AssetAllocationChart({ data }: AssetAllocationChartProps
 
   return (
     <div 
-      className="rounded-lg border border-zinc-200 bg-white p-4 sm:p-6 outline-none"
+      className="rounded-lg border border-zinc-200 bg-white p-5 sm:p-6 outline-none"
       style={{ outline: 'none' }}
       onMouseDown={(e) => e.preventDefault()}
     >
-      <h2 className="mb-4 text-lg font-semibold text-zinc-900">Asset Allocation</h2>
+      <h2 className="mb-5 sm:mb-4 text-lg font-semibold text-zinc-900">Asset Allocation</h2>
       
       {/* Chart - smaller on mobile, labels hidden on mobile */}
-      <div style={{ outline: 'none' }} className="outline-none [&_svg]:outline-none [&_svg]:focus:outline-none **:outline-none">
+      <div style={{ outline: 'none' }} className="outline-none [&_svg]:outline-none [&_svg]:focus:outline-none **:outline-none py-2 sm:py-0">
         <ResponsiveContainer width="100%" height={isMobile ? 200 : 300}>
           <PieChart>
             <Pie
