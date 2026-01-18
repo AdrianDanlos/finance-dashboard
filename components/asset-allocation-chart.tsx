@@ -34,20 +34,20 @@ export default function AssetAllocationChart({ data }: AssetAllocationChartProps
 
   if (data.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">No data available</p>
+      <div className="flex h-64 items-center justify-center rounded-lg border border-zinc-200 bg-white">
+        <p className="text-sm text-zinc-500">No data available</p>
       </div>
     )
   }
 
   return (
     <div 
-      className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6 outline-none"
+      className="rounded-lg border border-zinc-200 bg-white p-6 outline-none"
       style={{ outline: 'none' }}
       onMouseDown={(e) => e.preventDefault()}
     >
-      <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-50">Asset Allocation</h2>
-      <div style={{ outline: 'none' }} className="outline-none [&_svg]:outline-none [&_svg]:focus:outline-none [&_*]:outline-none">
+      <h2 className="mb-4 text-lg font-semibold text-zinc-900">Asset Allocation</h2>
+      <div style={{ outline: 'none' }} className="outline-none [&_svg]:outline-none [&_svg]:focus:outline-none **:outline-none">
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie

@@ -49,24 +49,24 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+      <div className="min-h-screen bg-zinc-50">
         <Nav entryCount={0} />
         <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <p className="text-zinc-600 dark:text-zinc-400">Loading...</p>
+          <p className="text-zinc-600">Loading...</p>
         </main>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+    <div className="min-h-screen bg-zinc-50">
       <Nav entryCount={assets.length} />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">Net Worth</h1>
-          <p className="mt-2 text-4xl font-bold text-zinc-900 dark:text-zinc-50">{formatCurrency(totalNetWorth)}</p>
+          <h1 className="text-3xl font-semibold text-zinc-900">Net Worth</h1>
+          <p className="mt-2 text-4xl font-bold text-zinc-900">{formatCurrency(totalNetWorth)}</p>
           {lastUpdated && (
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-2 text-sm text-zinc-600">
               Last updated: {format(lastUpdated, 'MMM d, yyyy HH:mm')}
             </p>
           )}

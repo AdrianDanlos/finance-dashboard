@@ -119,31 +119,31 @@ export default function DataPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+      <div className="min-h-screen bg-zinc-50">
         <Nav entryCount={0} />
         <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <p className="text-zinc-600 dark:text-zinc-400">Loading...</p>
+          <p className="text-zinc-600">Loading...</p>
         </main>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
+    <div className="min-h-screen bg-zinc-50">
       <Nav entryCount={entries.length} />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">Data Management</h1>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Manage your asset entries</p>
+          <h1 className="text-3xl font-semibold text-zinc-900">Data Management</h1>
+          <p className="mt-2 text-sm text-zinc-600">Manage your asset entries</p>
         </div>
 
-        <div className="mb-6 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 sm:p-6">
-          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+        <div className="mb-6 rounded-lg border border-zinc-200 bg-white p-4 sm:p-6">
+          <h2 className="mb-4 text-lg font-semibold text-zinc-900">
             {editingId ? 'Edit Entry' : 'Add New Entry'}
           </h2>
           <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-4">
             <div>
-              <label htmlFor="platform" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+              <label htmlFor="platform" className="block text-sm font-medium text-zinc-700 mb-2">
                 Platform
               </label>
               <input
@@ -153,12 +153,12 @@ export default function DataPage() {
                 value={formData.platform}
                 onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
                 required
-                className="w-full rounded-md border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 px-3 py-2.5 sm:py-2 text-sm focus:border-zinc-500 dark:focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:focus:ring-zinc-600"
+                className="w-full rounded-md border border-zinc-300 px-3 py-2.5 sm:py-2 text-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
                 placeholder="e.g., n26, binance"
               />
             </div>
             <div>
-              <label htmlFor="asset_type" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+              <label htmlFor="asset_type" className="block text-sm font-medium text-zinc-700 mb-2">
                 Asset Type
               </label>
               <input
@@ -167,12 +167,12 @@ export default function DataPage() {
                 value={formData.asset_type}
                 onChange={(e) => setFormData({ ...formData, asset_type: e.target.value })}
                 required
-                className="w-full rounded-md border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 px-3 py-2.5 sm:py-2 text-sm focus:border-zinc-500 dark:focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:focus:ring-zinc-600"
+                className="w-full rounded-md border border-zinc-300 px-3 py-2.5 sm:py-2 text-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
                 placeholder="e.g., cash, crypto, stocks"
               />
             </div>
             <div>
-              <label htmlFor="amount" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+              <label htmlFor="amount" className="block text-sm font-medium text-zinc-700 mb-2">
                 Amount
               </label>
               <input
@@ -187,14 +187,14 @@ export default function DataPage() {
                   setError(null)
                 }}
                 required
-                className="w-full rounded-md border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 px-3 py-2.5 sm:py-2 text-sm focus:border-zinc-500 dark:focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:focus:ring-zinc-600"
+                className="w-full rounded-md border border-zinc-300 px-3 py-2.5 sm:py-2 text-sm focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
                 placeholder="0.00"
               />
             </div>
             <div className="flex items-end gap-2">
               <button
                 type="submit"
-                className="w-full rounded-md bg-zinc-900 dark:bg-zinc-50 px-4 py-2.5 sm:py-2 text-sm font-medium text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors touch-manipulation"
+                className="w-full rounded-md bg-zinc-900 px-4 py-2.5 sm:py-2 text-sm font-medium text-white hover:bg-zinc-800 transition-colors touch-manipulation"
               >
                 {editingId ? 'Update' : 'Add'}
               </button>
@@ -202,7 +202,7 @@ export default function DataPage() {
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="w-full rounded-md border border-zinc-300 dark:border-zinc-700 px-4 py-2.5 sm:py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors touch-manipulation"
+                  className="w-full rounded-md border border-zinc-300 px-4 py-2.5 sm:py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors touch-manipulation"
                 >
                   Cancel
                 </button>
@@ -210,65 +210,65 @@ export default function DataPage() {
             </div>
           </form>
           {error && (
-            <p className="mt-3 text-sm text-red-600 dark:text-red-400">{error}</p>
+            <p className="mt-3 text-sm text-red-600">{error}</p>
           )}
         </div>
 
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+        <div className="rounded-lg border border-zinc-200 bg-white">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+              <thead className="border-b border-zinc-200 bg-zinc-50">
                 <tr>
-                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-700">
                     Platform
                   </th>
-                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-700">
                     Asset Type
                   </th>
-                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-700">
                     Amount
                   </th>
-                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-zinc-700">
                     Created
                   </th>
-                  <th className="px-4 sm:px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                  <th className="px-4 sm:px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-zinc-700">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800 bg-white dark:bg-zinc-950">
+              <tbody className="divide-y divide-zinc-200 bg-white">
                 {entries.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-4 sm:px-6 py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
+                    <td colSpan={5} className="px-4 sm:px-6 py-8 text-center text-sm text-zinc-500">
                       No entries yet. Add your first entry above.
                     </td>
                   </tr>
                 ) : (
                   entries.map((entry) => (
-                    <tr key={entry.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
-                      <td className="whitespace-nowrap px-4 sm:px-6 py-4 text-sm text-zinc-900 dark:text-zinc-50">
+                    <tr key={entry.id} className="hover:bg-zinc-50 transition-colors">
+                      <td className="whitespace-nowrap px-4 sm:px-6 py-4 text-sm text-zinc-900">
                         {entry.platform}
                       </td>
-                      <td className="whitespace-nowrap px-4 sm:px-6 py-4 text-sm text-zinc-600 dark:text-zinc-400">
+                      <td className="whitespace-nowrap px-4 sm:px-6 py-4 text-sm text-zinc-600">
                         {entry.asset_type}
                       </td>
-                      <td className="whitespace-nowrap px-4 sm:px-6 py-4 text-sm font-medium text-zinc-900 dark:text-zinc-50">
+                      <td className="whitespace-nowrap px-4 sm:px-6 py-4 text-sm font-medium text-zinc-900">
                         {formatCurrency(entry.amount)}
                       </td>
-                      <td className="hidden sm:table-cell whitespace-nowrap px-6 py-4 text-sm text-zinc-600 dark:text-zinc-400">
+                      <td className="hidden sm:table-cell whitespace-nowrap px-6 py-4 text-sm text-zinc-600">
                         {format(new Date(entry.created_at), 'MMM d, yyyy')}
                       </td>
                       <td className="whitespace-nowrap px-4 sm:px-6 py-4 text-right text-sm font-medium">
                         <div className="flex justify-end gap-2 sm:gap-3">
                           <button
                             onClick={() => handleEdit(entry)}
-                            className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors touch-manipulation min-h-[44px] min-w-[44px] px-2 sm:px-0"
+                            className="text-zinc-600 hover:text-zinc-900 transition-colors touch-manipulation min-h-[44px] min-w-[44px] px-2 sm:px-0"
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => handleDelete(entry.id)}
-                            className="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 transition-colors touch-manipulation min-h-[44px] min-w-[44px] px-2 sm:px-0"
+                            className="text-red-600 hover:text-red-900 transition-colors touch-manipulation min-h-[44px] min-w-[44px] px-2 sm:px-0"
                           >
                             Delete
                           </button>
