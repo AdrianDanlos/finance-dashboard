@@ -8,7 +8,6 @@ A single-user personal finance dashboard for tracking net worth. Minimal, clean,
 - **Single-User Access** - Only one allowlisted email can access the app
 - **Net Worth Summary** - View total net worth at a glance
 - **Asset Allocation Chart** - Donut chart showing distribution by asset type
-- **Platform Allocation Chart** - Horizontal bar chart showing distribution by platform
 - **Data Management** - Add, edit, and delete asset entries
 
 ## Tech Stack
@@ -29,8 +28,6 @@ A single-user personal finance dashboard for tracking net worth. Minimal, clean,
 - A Supabase account and project
 
 ### 2. Supabase Setup
-
-**📖 Detailed Setup Guide**: See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) for step-by-step instructions.
 
 **Quick Steps:**
 1. Create a new Supabase project at [supabase.com](https://supabase.com)
@@ -101,8 +98,7 @@ Each asset entry contains:
 │   └── layout.tsx         # Root layout
 ├── components/            # React components
 │   ├── nav.tsx            # Navigation bar
-│   ├── asset-allocation-chart.tsx
-│   └── platform-allocation-chart.tsx
+│   └── asset-allocation-chart.tsx
 ├── lib/
 │   ├── supabase/          # Supabase client utilities
 │   ├── auth.ts            # Authentication helpers

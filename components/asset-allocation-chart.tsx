@@ -1,7 +1,9 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts'
 import type { AssetAllocation } from '@/lib/utils'
+import { formatCurrency } from '@/lib/utils'
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899']
 
@@ -20,6 +22,17 @@ function formatCompactAmount(amount: number): string {
 }
 
 export default function AssetAllocationChart({ data }: AssetAllocationChartProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const chartData = data.map((item) => {
     const assetTypeName = item.asset_type.replace('_', ' ')
     const platformsText = item.platforms.length > 0 ? ` (${item.platforms.join(', ')})` : ''
@@ -42,24 +55,26 @@ export default function AssetAllocationChart({ data }: AssetAllocationChartProps
 
   return (
     <div 
-      className="rounded-lg border border-zinc-200 bg-white p-6 outline-none"
+      className="rounded-lg border border-zinc-200 bg-white p-4 sm:p-6 outline-none"
       style={{ outline: 'none' }}
       onMouseDown={(e) => e.preventDefault()}
     >
       <h2 className="mb-4 text-lg font-semibold text-zinc-900">Asset Allocation</h2>
+      
+      {/* Chart - smaller on mobile, labels hidden on mobile */}
       <div style={{ outline: 'none' }} className="outline-none [&_svg]:outline-none [&_svg]:focus:outline-none **:outline-none">
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={isMobile ? 200 : 300}>
           <PieChart>
             <Pie
               data={chartData}
               cx="50%"
               cy="50%"
               labelLine={false}
-              label={(entry: any) => 
+              label={isMobile ? false : (entry: any) => 
                 `${entry.assetType}: ${formatCompactAmount(entry.value)} (${entry.percentage.toFixed(1)}%)`
               }
-              outerRadius={100}
-              innerRadius={50}
+              outerRadius={isMobile ? 60 : 100}
+              innerRadius={isMobile ? 30 : 50}
               fill="#8884d8"
               dataKey="value"
               isAnimationActive={true}
@@ -71,9 +86,34 @@ export default function AssetAllocationChart({ data }: AssetAllocationChartProps
             </Pie>
             <Legend
               wrapperStyle={{ paddingTop: '20px', outline: 'none' }}
+              className="hidden sm:block"
             />
           </PieChart>
         </ResponsiveContainer>
+      </div>
+
+      {/* Mobile-friendly list view - shown on mobile, hidden on desktop */}
+      <div className="mt-6 space-y-3 sm:hidden">
+        {chartData.map((entry, index) => (
+          <div key={index} className="flex items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+            <div className="flex items-center gap-3">
+              <div 
+                className="h-4 w-4 rounded-full flex-shrink-0" 
+                style={{ backgroundColor: COLORS[index % COLORS.length] }}
+              />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium text-zinc-900 truncate">{entry.assetType}</p>
+                {entry.platforms.length > 0 && (
+                  <p className="text-xs text-zinc-600 truncate">{entry.platforms.join(', ')}</p>
+                )}
+              </div>
+            </div>
+            <div className="text-right flex-shrink-0 ml-2">
+              <p className="text-sm font-semibold text-zinc-900">{formatCurrency(entry.value)}</p>
+              <p className="text-xs text-zinc-600">{entry.percentage.toFixed(1)}%</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )

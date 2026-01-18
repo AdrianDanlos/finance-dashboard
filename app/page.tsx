@@ -62,17 +62,17 @@ export default function HomePage() {
     <div className="min-h-screen bg-zinc-50">
       <Nav entryCount={assets.length} />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-zinc-900">Net Worth</h1>
-          <p className="mt-2 text-4xl font-bold text-zinc-900">{formatCurrency(totalNetWorth)}</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-zinc-900">Net Worth</h1>
+          <p className="mt-2 text-3xl sm:text-4xl font-bold text-zinc-900">{formatCurrency(totalNetWorth)}</p>
           {lastUpdated && (
-            <p className="mt-2 text-sm text-zinc-600">
+            <p className="mt-2 text-xs sm:text-sm text-zinc-600">
               Last updated: {format(lastUpdated, 'MMM d, yyyy HH:mm')}
             </p>
           )}
         </div>
 
-        <div className="max-w-2xl">
+        <div className="w-full sm:max-w-2xl">
           <AssetAllocationChart data={assetAllocation} />
         </div>
       </main>
