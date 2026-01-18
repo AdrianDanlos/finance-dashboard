@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import type { AssetAllocation } from '@/lib/utils'
 import { formatCurrency } from '@/lib/utils'
 
@@ -61,59 +61,59 @@ export default function AssetAllocationChart({ data }: AssetAllocationChartProps
     >
       <h2 className="mb-5 sm:mb-4 text-lg font-semibold text-zinc-900">Asset Allocation</h2>
       
-      {/* Chart - smaller on mobile, labels hidden on mobile */}
-      <div style={{ outline: 'none' }} className="outline-none [&_svg]:outline-none [&_svg]:focus:outline-none **:outline-none py-2 sm:py-0">
-        <ResponsiveContainer width="100%" height={isMobile ? 200 : 350}>
-          <PieChart>
-            <Pie
-              data={chartData}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={isMobile ? false : (entry: any) => 
-                `${entry.assetType}: ${formatCompactAmount(entry.value)} (${entry.percentage.toFixed(1)}%)`
-              }
-              outerRadius={isMobile ? 60 : 100}
-              innerRadius={isMobile ? 30 : 50}
-              fill="#8884d8"
-              dataKey="value"
-              isAnimationActive={true}
-              activeShape={false}
-            >
-              {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Legend
-              wrapperStyle={{ paddingTop: '20px', outline: 'none' }}
-              className="hidden sm:block"
-            />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+      {/* Flex container for chart and cards side-by-side on desktop */}
+      <div className="flex flex-col sm:flex-row sm:gap-6">
+        {/* Chart - smaller on mobile, labels hidden on mobile */}
+        <div style={{ outline: 'none' }} className="outline-none [&_svg]:outline-none [&_svg]:focus:outline-none **:outline-none py-2 sm:py-0 sm:flex-1">
+          <ResponsiveContainer width="100%" height={isMobile ? 200 : 350}>
+            <PieChart>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                label={isMobile ? false : (entry: any) => 
+                  `${entry.assetType}: ${formatCompactAmount(entry.value)} (${entry.percentage.toFixed(1)}%)`
+                }
+                outerRadius={isMobile ? 60 : 100}
+                innerRadius={isMobile ? 30 : 50}
+                fill="#8884d8"
+                dataKey="value"
+                isAnimationActive={true}
+                activeShape={false}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
 
-      {/* Mobile-friendly list view - shown on mobile, hidden on desktop */}
-      <div className="mt-6 space-y-3 sm:hidden">
-        {chartData.map((entry, index) => (
-          <div key={index} className="flex items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 p-3">
-            <div className="flex items-center gap-3">
-              <div 
-                className="h-4 w-4 rounded-full flex-shrink-0" 
-                style={{ backgroundColor: COLORS[index % COLORS.length] }}
-              />
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-zinc-900 truncate">{entry.assetType}</p>
-                {entry.platforms.length > 0 && (
-                  <p className="text-xs text-zinc-600 truncate">{entry.platforms.join(', ')}</p>
-                )}
+        {/* Cards list view - shown on mobile below, on desktop on the right */}
+        <div className="mt-6 sm:mt-0 sm:w-80 space-y-3">
+          {chartData.map((entry, index) => (
+            <div key={index} className="flex items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+              <div className="flex items-center gap-3">
+                <div 
+                  className="h-4 w-4 rounded-full shrink-0" 
+                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-zinc-900 truncate">{entry.assetType}</p>
+                  {entry.platforms.length > 0 && (
+                    <p className="text-xs text-zinc-600 truncate">{entry.platforms.join(', ')}</p>
+                  )}
+                </div>
+              </div>
+              <div className="text-right shrink-0 ml-2">
+                <p className="text-sm font-semibold text-zinc-900">{formatCurrency(entry.value)}</p>
+                <p className="text-xs text-zinc-600">{entry.percentage.toFixed(1)}%</p>
               </div>
             </div>
-            <div className="text-right flex-shrink-0 ml-2">
-              <p className="text-sm font-semibold text-zinc-900">{formatCurrency(entry.value)}</p>
-              <p className="text-xs text-zinc-600">{entry.percentage.toFixed(1)}%</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )

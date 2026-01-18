@@ -72,7 +72,7 @@ export default function HomePage() {
           )}
         </div>
 
-        <div className="w-full sm:max-w-2xl">
+        <div className="w-full sm:max-w-5xl">
           <AssetAllocationChart data={assetAllocation} />
         </div>
       </main>
